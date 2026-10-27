@@ -1,0 +1,278 @@
+{
+  "app": {
+    "title": "OpenRotor Lab",
+    "tagline": "Local-first FPV tuning",
+    "version": "MVP 0.1"
+  },
+  "common": {
+    "loading": "Loading…",
+    "loadingHint": "Restoring your local workspace",
+    "dismiss": "Dismiss",
+    "close": "Close",
+    "none": "None"
+  },
+  "nav": {
+    "open": "Open navigation",
+    "close": "Close navigation",
+    "menu": "Menu",
+    "sectionLab": "Tuning lab",
+    "sectionPlanned": "Planned modules",
+    "tagReady": "working",
+    "tagPlanned": "planned",
+    "theme": "Switch to {{theme}} theme",
+    "rateStudio": "Rate Studio",
+    "rateCalibration": "Rate Calibration",
+    "blackboxLab": "Blackbox Lab",
+    "tuneCoach": "Tune Coach",
+    "droneGarage": "Drone Garage",
+    "betaflightTools": "Betaflight Tools",
+    "hardwareConnect": "Hardware Connect",
+    "safetyCenter": "Safety Center",
+    "demoMode": "Demo Mode"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "description": "The interface hit an unexpected error. Profiles saved in this browser were not touched.",
+    "reload": "Reload the page",
+    "details": "Technical details"
+  },
+  "rate": {
+    "title": "Rate Studio",
+    "subtitle": "Model how stick position turns into rotation speed using the published Betaflight rate mathematics. Everything is computed and stored locally.",
+    "profileName": "Profile name",
+    "profileNameHint": "Used when you export or save the profile.",
+    "unit": "°/s",
+    "model": {
+      "title": "Rates model",
+      "help": "Both models below are implemented and covered by numeric tests. Switching keeps the raw CLI values and changes how they are interpreted.",
+      "ratesType": "CLI rates_type: {{value}}",
+      "active": "Active",
+      "pending": "Not implemented yet",
+      "pendingHelp": "Betaflight ships more rates types. OpenRotor Lab lists them but does not simulate them until they are implemented correctly.",
+      "actual": {
+        "name": "ACTUAL",
+        "desc": "Center sensitivity and maximum rate are set directly in °/s; expo shapes the middle of the curve."
+      },
+      "betaflight": {
+        "name": "BETAFLIGHT",
+        "desc": "Classic RC Rate, Expo and Super Rate behaviour, including the documented over-crop above RC Rate 2.00."
+      }
+    },
+    "axis": {
+      "roll": "Roll",
+      "pitch": "Pitch",
+      "yaw": "Yaw",
+      "visible": "Show {{axis}} on the chart",
+      "hidden": "{{axis}} is hidden"
+    },
+    "param": {
+      "cli": "CLI {{name}} = {{value}}",
+      "invalid": "Value must be between {{min}} and {{max}}.",
+      "rcRate": {
+        "actual": "Center sensitivity",
+        "betaflight": "RC Rate"
+      },
+      "expo": "Expo",
+      "srate": {
+        "actual": "Maximum rate",
+        "betaflight": "Super Rate"
+      },
+      "rateLimit": "Rate limit",
+      "hint": {
+        "rcRateActual": "Speed at stick center. Stored as rc_rate × 10.",
+        "rcRateBetaflight": "Multiplies the whole curve. Stored as rc_rate.",
+        "expo": "Softens the middle of the curve without moving its ends.",
+        "srateActual": "Speed at full stick. Stored as srate × 10.",
+        "srateBetaflight": "Pulls the curve up towards full stick.",
+        "rateLimit": "Hard ceiling applied last, stored as rate_limit."
+      }
+    },
+    "metrics": {
+      "center": "Center sensitivity",
+      "max": "Maximum rate",
+      "limited": "Output after limit"
+    },
+    "chart": {
+      "title": "Stick position → rotation speed",
+      "hint": "Move any slider and the curve updates immediately. Hover or drag over the chart to read values.",
+      "stick": "Stick position",
+      "rate": "Rate",
+      "empty": "Select at least one axis to draw the chart.",
+      "comparisonLegend": "{{axis}} · {{label}}"
+    },
+    "table": {
+      "title": "Values at fixed stick positions",
+      "stick": "Stick",
+      "stops": "Table columns are sampled at stick positions {{stops}} of full deflection.",
+      "deltaTitle": "Difference against the comparison",
+      "deltaHint": "Current profile minus the compared profile."
+    },
+    "compare": {
+      "title": "Comparison",
+      "hint": "Draw a second profile on the same chart and read the difference.",
+      "source": "Compare with",
+      "none": "No comparison selected",
+      "on": "Comparing",
+      "action": "Compare",
+      "noOptions": "Nothing to compare against yet.",
+      "presetOption": "Preset: {{name}}",
+      "savedOption": "Saved: {{name}}",
+      "swap": "Swap profiles",
+      "clear": "Stop comparing",
+      "enable": "Compare profiles"
+    },
+    "presets": {
+      "title": "Defaults and examples",
+      "hint": "Every reset explains where its values come from.",
+      "load": "Load",
+      "active": "Active",
+      "activeNote": "Active preset: {{preset}}",
+      "name": {
+        "betaflight-2025-12-default": "Betaflight 2025.12 default",
+        "example-actual-freestyle": "Freestyle example (ACTUAL)",
+        "example-legacy-race": "Legacy race example (BETAFLIGHT)"
+      },
+      "provenance": {
+        "betaflight-2025-12-default": "Betaflight 2025.12 firmware default rate profile: rates_type ACTUAL, rc_rate 7, expo 0, srate 67, rate_limit 1998.",
+        "example-actual": "Example freestyle values for the ACTUAL model (center 90 °/s, max 1100 °/s). Not a firmware default.",
+        "example-legacy": "Example classic values for the BETAFLIGHT model (rc_rate 90, expo 0, super rate 70 → 600 °/s max). Not a firmware default."
+      }
+    },
+    "reset": {
+      "button": "Reset to defaults",
+      "title": "Reset to firmware defaults",
+      "body": "Restores the Betaflight 2025.12 default rate profile for the ACTUAL model. The legacy BETAFLIGHT model has no firmware default, so it is reset to the documented example above."
+    },
+    "export": {
+      "title": "Export",
+      "button": "Export JSON",
+      "hint": "Downloads a JSON file with the model, all three axes and the rate limit. Nothing leaves your device."
+    },
+    "import": {
+      "title": "Import",
+      "button": "Import JSON",
+      "hint": "Reads an OpenRotor Lab profile. The file is validated before anything changes.",
+      "issues": "The file was rejected:"
+    },
+    "profiles": {
+      "title": "Saved in this browser",
+      "storageNote": "Profiles are stored in this browser's local storage only. Nothing is uploaded, and clearing site data removes them.",
+      "emptyTitle": "No saved profiles",
+      "empty": "No profiles saved yet. Save the current setup to keep a backup or to compare it later.",
+      "save": "Save profile",
+      "savedBadge": "Saved “{{name}}”",
+      "compareHint": "Compare loads a saved profile onto the chart without touching your current values.",
+      "load": "Load",
+      "delete": "Delete",
+      "savedAt": "Saved {{date}}",
+      "count": "{{count}} stored locally"
+    }
+  },
+  "notice": {
+    "profile": {
+      "saved": "Profile “{{name}}” saved in this browser.",
+      "saveFailed": "Could not save the profile.",
+      "nameRequired": "Enter a profile name before saving.",
+      "loaded": "Profile “{{name}}” loaded.",
+      "deleted": "Profile deleted.",
+      "imported": "Profile “{{name}}” imported.",
+      "importFailed": "Import rejected: {{count}} problem(s) found."
+    },
+    "storage": {
+      "unavailable": "Local storage is not available in this browser, so profiles cannot be saved."
+    },
+    "model": {
+      "clamped": "Some values were clamped to the limits of the {{model}} model."
+    },
+    "preset": {
+      "loaded": "Preset loaded: {{preset}}."
+    },
+    "file": {
+      "unreadable": "The selected file could not be read."
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "This route does not exist in OpenRotor Lab.",
+    "action": "Go to Rate Studio"
+  },
+  "planned": {
+    "common": {
+      "badge": "Planned",
+      "lead": "This module is announced but not implemented yet. It does not show fake data and it does not pretend to work.",
+      "willDo": "What it will do"
+    },
+    "rateCalibration": {
+      "title": "Rate Calibration",
+      "desc": "Measure how your sticks actually travel and turn that into rates you can feel.",
+      "points": [
+        "Guide a pilot through a stick sweep and record the real stick positions.",
+        "Compare measured travel with the configured endpoints and expo.",
+        "Suggest rate values for a target feel instead of guessing."
+      ]
+    },
+    "blackboxLab": {
+      "title": "Blackbox Lab",
+      "desc": "Read Betaflight blackbox logs entirely in the browser.",
+      "points": [
+        "Open .bbl/.bfl blackbox logs with a WebAssembly parser.",
+        "Inspect gyro, setpoint and PID traces on a shared timeline.",
+        "Export charts and a cleaned summary of a tune."
+      ]
+    },
+    "tuneCoach": {
+      "title": "Tune Coach",
+      "desc": "Turn log evidence into PID and filter recommendations.",
+      "points": [
+        "Detect oscillations, overshoot and weak noise rejection from logs.",
+        "Explain each recommendation and the reasoning behind it.",
+        "Keep a history of tunes per drone with before/after comparisons."
+      ]
+    },
+    "droneGarage": {
+      "title": "Drone Garage",
+      "desc": "Keep a technical passport for every quad you own.",
+      "points": [
+        "Store frame, motor, prop and battery details per build.",
+        "Track maintenance: soldering, bearing wear, prop damage.",
+        "Link builds to tunes and to the logs they produced."
+      ]
+    },
+    "betaflightTools": {
+      "title": "Betaflight Tools",
+      "desc": "Small utilities that remove CLI busywork.",
+      "points": [
+        "Translate a CLI dump into readable, diffable settings.",
+        "Build a CLI snippet for a rate, filter or PID change.",
+        "Validate a diff before it ever reaches the flight controller."
+      ]
+    },
+    "hardwareConnect": {
+      "title": "Hardware Connect",
+      "desc": "Talk to a flight controller from the browser.",
+      "points": [
+        "Connect over WebSerial or WebUSB with an explicit consent step.",
+        "Read the current configuration as a read-only first step.",
+        "Write parameters only after a review screen — never silently."
+      ]
+    },
+    "safetyCenter": {
+      "title": "Safety Center",
+      "desc": "Preflight checks and safety notes in one place.",
+      "points": [
+        "A preflight checklist covering props, arming and failsafe.",
+        "Explain what each Betaflight setting changes in flight.",
+        "Warnings for configurations that are known to be risky."
+      ]
+    },
+    "demoMode": {
+      "title": "Demo Mode",
+      "desc": "Walk through the lab with sample data that is clearly marked.",
+      "points": [
+        "A synthetic log and a synthetic build, both labelled as samples.",
+        "Guided tours of each module without touching your own data.",
+        "A safe way to decide whether the lab fits your workflow."
+      ]
+    }
+  }
+}
