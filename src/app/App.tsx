@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { Redirect, Route, Switch } from 'wouter';
+import { Redirect, Route, Router, Switch } from 'wouter';
+import { useHashLocation } from 'wouter/use-hash-location';
 import { AppShell } from './AppShell';
 import { ErrorBoundary } from './ErrorBoundary';
 import { LoadingScreen } from './LoadingScreen';
@@ -34,22 +35,27 @@ export function App() {
 
   return (
     <ErrorBoundary>
-      <AppShell>
-        <Switch>
-          <Route path="/">
-            <Redirect to={HOME_REDIRECT} />
-          </Route>
-          <Route path="/rate-studio" component={RateStudioPage} />
-          {PLANNED_NAV_ITEMS.map((item) => (
-            <Route key={item.id} path={item.path}>
-              <PlannedModulePage contentKey={item.contentKey} />
+      {/* Hash routing: a static host (GitHub Pages) has no SPA rewrite rules,
+          so `/#/rate-studio` must survive a reload while `/rate-studio` would
+          404. All internal `<Link>`s render `#/...` automatically. */}
+      <Router hook={useHashLocation}>
+        <AppShell>
+          <Switch>
+            <Route path="/">
+              <Redirect to={HOME_REDIRECT} />
             </Route>
-          ))}
-          <Route>
-            <NotFoundPage />
-          </Route>
-        </Switch>
-      </AppShell>
+            <Route path="/rate-studio" component={RateStudioPage} />
+            {PLANNED_NAV_ITEMS.map((item) => (
+              <Route key={item.id} path={item.path}>
+                <PlannedModulePage contentKey={item.contentKey} />
+              </Route>
+            ))}
+            <Route>
+              <NotFoundPage />
+            </Route>
+          </Switch>
+        </AppShell>
+      </Router>
     </ErrorBoundary>
   );
 }

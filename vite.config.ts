@@ -3,6 +3,11 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [react()],
+  // Relative asset URLs so the same bundle works at any mount point: a plain
+  // static server, `file://`-style inspection, and a GitHub Pages *project*
+  // site (`https://<user>.github.io/<repo>/`) — where an absolute `/assets/...`
+  // path would 404. No backend or rewrites are required either way.
+  base: './',
   // Static, self-contained build: no external CDN, no remote assets.
   build: {
     target: 'es2022',
